@@ -30,9 +30,9 @@ class BPcore:
     self.shooter.reset()
 
   def act(self):
-#    if self.state <= SHOOTING:
-    self.radar.act()
-    self.shooter.act()
+    if self.state <= SHOOTING:
+      self.radar.act()
+      self.shooter.act()
     self.navigator.act()
 
   def setState(self,state):
@@ -47,7 +47,7 @@ class BPcore:
     self.communicator.sendColor(self.color1,self.color2)
 
   def getCookie(self,angle):
-    #self.communicator.say("cookie at %f!"%angle)
+    self.communicator.say("cookie at %f!"%angle)
     self.navigator.moveInDirection(angle)
     pass
 

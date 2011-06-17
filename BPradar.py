@@ -1,6 +1,6 @@
 # coding=utf-8
 
-import BPpings,BPcore
+import BPcore
 import sys,math
 
 # Distanz (basierend auf standardpanzergröße und square arena)
@@ -27,6 +27,7 @@ class BPradar:
     self.state = SEARCHING
     self.lastEnemyAngle = None
     self.lastEnemySpeed = 0
+    self.previousEnemySpeed = None
     self.lastEnemyDistance = 10
     self.rotateIssued = False
     self.enemySeen = False
@@ -56,9 +57,10 @@ class BPradar:
         self.state = SCANFWD
       elif self.state == SCANFWD:
         if not self.enemySeen and not self.rotateIssued:
-          #self.core.communicator.say("radar: target lost")
+          self.core.communicator.say("radar: target lost")
           self.lastEnemyAngle = None
           self.lastEnemySpeed = 0
+          self.previousEnemySpeed = None
           self.state = SEARCHING
         else:
           #self.core.communicator.say("radar: scanfwd")
@@ -72,7 +74,7 @@ class BPradar:
         #  self.sweepmodifier = 2
         #futureEnemyAngle = (math.pi*2 + self.lastEnemyAngle + self.lastEnemySpeed)%(math.pi*2)
         futureEnemyAngle = self.lastEnemyAngle
-        #self.core.communicator.say("radar: relocking to %f"%futureEnemyAngle)
+        #self.core.communicator.say("radar: tracing enemy at %f"%futureEnemyAngle)
         self.core.communicator.send("RotateTo 4 %f %f"%(self.maxRotate,futureEnemyAngle))
         self.rotateIssued = True
         self.state = LOCKED
@@ -86,20 +88,21 @@ class BPradar:
       if self.lastEnemyAngle == None:
         #self.core.communicator.say("radar: new enemy")
         self.lastEnemyAngle = angle
-        self.futureEnemyAngle = angle
       else:
         if self.state == SCANFWD:
+          self.previousEnemySpeed = self.lastEnemySpeed
           self.lastEnemySpeed = angle - self.lastEnemyAngle
+          if self.lastEnemySpeed > math.pi:
+            self.lastEnemySpeed = self.lastEnemySpeed - math.pi*2
           #self.core.communicator.say("radar: new speed %f"%self.lastEnemySpeed)
         self.lastEnemyAngle = angle
       self.lastEnemyDistance = distance
 
       if self.state == SEARCHING:
-        self.core.communicator.send("RotateTo 6 %f %f"%(self.maxRotate,angle))
-        self.state = LOCKED
+        self.state = FOUND
 
     elif kind == 3:
       self.core.getCookie(angle)
-    elif kind == 5:
-      self.core.communicator.say("radar: got 'same kind'")
+    #elif kind == 5:
+      #self.core.communicator.say("radar: got 'same kind'")
 

@@ -6,10 +6,10 @@ import sys
 class BPcommunicator:
   def __init__(self,core):
     self.core = core
-    self.f = open("servermessages.log",'w')
+    #self.f = open("servermessages.log",'w')
 
   def processServerMessage(self,message):
-    self.f.write(message)
+    #self.f.write(message)
     #print >> sys.stderr, 'recieved message from server: %s'%(message)
     parts = message.split()
     if parts[0] == "Initialize":
@@ -27,6 +27,7 @@ class BPcommunicator:
         self.core.radar.processInput(float(parts[1]),int(parts[2]),float(parts[3]))
     elif parts[0] == "Info":
       self.core.processInfo(parts[1],parts[2],parts[3])
+      self.core.act()
     elif parts[0] == "Coordinates":
       #self.core.navigator.setCoordinates(float(parts[1]),float(parts[2]),float(parts[3]))
       pass
@@ -38,8 +39,6 @@ class BPcommunicator:
       self.core.shooter.rotationReached(int(parts[1]))
     elif parts[0] == "Energy":
       self.core.setEnergy(float(parts[1]))
-      # und weil energy das letzte im satz ist
-      self.core.act()
     elif parts[0] == "RobotsLeft":
       pass
     elif parts[0] == "Collision":
@@ -65,9 +64,9 @@ class BPcommunicator:
 
   def say(self,string):
     print "Print %s"%(string)
-    print >> sys.stderr, string
+    #print >> sys.stderr, string
 
   def send(self,string):
     if not self.core.dead:
       print string
-      self.f.write(string+"\n")
+      #self.f.write(string+"\n")
