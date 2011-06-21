@@ -93,7 +93,7 @@ class BPradar:
           self.previousEnemySpeed = self.lastEnemySpeed
           self.lastEnemySpeed = angle - self.lastEnemyAngle
           if self.lastEnemySpeed > math.pi:
-            self.lastEnemySpeed = self.lastEnemySpeed - math.pi*2
+            self.lastEnemySpeed = math.pi - self.lastEnemySpeed
           #self.core.communicator.say("radar: new speed %f"%self.lastEnemySpeed)
         self.lastEnemyAngle = angle
       self.lastEnemyDistance = distance

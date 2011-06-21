@@ -1,0 +1,32 @@
+BLOODPYTHON
+Ein RealTimeBattle Roboter.
+
+NAME
+Der Roboter ist in Python geschrieben, ein Wortspiel in Anlehnung an die 
+Implementierungssprache war gesucht. Die "Python curtus breitensteini" 
+trägt im englischen Sprachraum den Trivialnamen "bloodpython", welcher 
+böse genug für einen kämpfenden Roboter klingt. Später stellte sich heraus, 
+dass Blutpython ungiftig und ziemlich harmlos sind. Leider trifft das auch 
+auf den Roboter zu.
+
+BETRIEB
+bloodpython wurde für Python 2.7 geschrieben. Unter Ubuntu zeigt
+/usr/bin/python2
+auf den passenden Interpreter. 
+Trage
+bloodpython.py
+als Hauptprogramm (Roboter) bei RealTimeBattle ein.
+
+GESCHICHTE
+Im Rahmen des Titels "Hacker Contest" war meine Idee, einen Roboter zu 
+erstellen, der die Eingaben rudimentär verarbeitet und immobile Ziele 
+zerstören kann. Anders als beim "Programmierwettbewerb" soll das Programm 
+nicht möglichst gut sein, sondern nur möglichst schnell fertig werden.
+Leider zeigt sich hier wieder einmal mehr:
+1. Wer lesen kann, ist klar im Vorteil.
+2. Sorgfältige Planung vermindert Doppelarbeit.
+Das selbstgewählte Zeitlimit von acht Stunden wurde leider nicht eingehalten. 
+Die Basisfunktionalität zum Anmelden des Roboters beim Spiel war zwar innerhalb 
+von sechs Stunden vorhanden, jedoch war die geplante Radarkontrolle mit 
+Zielerfassung, Nachführen und Vorhalten nach 15 Stunden noch nicht fertig.
+Schade.

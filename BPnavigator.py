@@ -27,6 +27,9 @@ class BPnavigator:
       self.core.setState(BPcore.MOVING)
 
   def moveInDirection(self,angle):
+    angle = angle%(math.pi*2)
+    if angle > math.pi:
+      angle = math.pi - angle
     self.targetAngle = angle
     self.rotationIssued = False
     self.core.setState(BPcore.TURNING)
