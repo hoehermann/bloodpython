@@ -80,6 +80,11 @@ class BPradar:
         self.state = LOCKED
         self.enemySeen = False
 
+  def lockOntoTarget(self,angle):
+    self.lastEnemyAngle = angle
+    if self.state == SEARCHING:
+      self.state = FOUND
+
   def processInput(self, distance, kind, angle):
     angle = angle%(math.pi*2)
     if kind == 0:
@@ -98,8 +103,7 @@ class BPradar:
         self.lastEnemyAngle = angle
       self.lastEnemyDistance = distance
 
-      if self.state == SEARCHING:
-        self.state = FOUND
+      self.lockOntoTarget(self.lastEnemyAngle)
 
     elif kind == 3:
       self.core.getCookie(angle)

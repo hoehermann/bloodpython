@@ -15,6 +15,9 @@ class BPnavigator:
   def processCollision(self,kind,angle):
     if kind != 1:
       self.core.setState(BPcore.IDLE)
+    if kind == 0:
+      angle = angle%(math.pi*2)
+      self.core.radar.lockOntoTarget(angle)
 
   def setMaxAccel(self,maxAccel):
     self.maxAccel = maxAccel
